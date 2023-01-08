@@ -1,9 +1,12 @@
+import Form from '../../components/Form';
 import styles from './search.module.scss';
 
 function Search() {
   return (
     <>
-      <div className={styles.search}>Search</div>
+      <div className={styles.searchConteiner}>
+        <Form />
+      </div>
     </>
   );
 }
