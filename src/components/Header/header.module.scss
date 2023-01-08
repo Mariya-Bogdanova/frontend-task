@@ -1,0 +1,83 @@
+.header{
+    overflow:hidden;
+    position: relative;
+    height: 56px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &:before{
+        overflow:hidden;
+        z-index: -1;
+        content: '';
+        background-color: rgba(255, 255, 255, 0.1);
+        filter: blur(12.5px);
+        position: absolute;
+        left: 0; 
+        right: 0; 
+        top: 0; 
+        bottom: 0;
+    }
+    
+    a{
+        font-weight: 400;
+        font-size: 18px;
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.menu{
+    width: 805px;
+    display: flex;
+    justify-content: center;
+
+    a{
+        display: block;
+        padding: 11px 25px;
+        height: 56px;
+        line-height: 56px;
+
+        &:hover { 
+            background:#636466 ;    
+        }
+    }
+
+    svg{
+        margin: 0 10px -2px 0; 
+        width: 16px;  
+        height: 16px;
+    }
+} 
+
+.menuButton{
+    button{
+        border: none;
+        width: 56px;
+        height: 56px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .loupeBtn{
+        background: #8e8f91;
+        margin-right: 32px;
+    }
+
+    .manBtn{
+        background-color: #636466;
+        
+        .circle{
+            position: absolute;
+            top: 9px;
+            right: 13px;
+        }
+    }
+
+    .svg{
+        width: 21px;
+        height: 21px;
+    }
+} 
+
+
