@@ -1,15 +1,24 @@
 import { IMovie } from '../../models';
 import styles from './movie.module.scss';
+import { ReactComponent as New } from '../../images/type=new.svg';
 
 interface IPropsMovie {
   movie: IMovie;
 }
 
-function Movie({ movie: { country, genres, length, min_age, num_seasons, title, year, poster } }: IPropsMovie) {
+function Movie({
+  movie: { country, genres, length, min_age, num_seasons, title, year, poster, imdb_rate, is_new },
+}: IPropsMovie) {
   return (
     <div className={styles.cardMovie}>
       <div className={styles.img}>
         <img src={`api/${poster}`} alt='picture' />
+        <div className={styles.btnOnIMG}>
+          {is_new && <New className={styles.new} />}
+          <div className={styles.greenButton}>
+            IMDB &nbsp; <span>{imdb_rate}/10</span>
+          </div>
+        </div>
       </div>
       <div className={styles.text}>
         <div className={styles.title}>{title}</div>
