@@ -11,4 +11,5 @@ export interface IMovie {
     title: string;
     type: string;
     year: number;
+    id?:string;
   }

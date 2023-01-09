@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Form from '../../components/Form';
-import MovieList from '../../components/MovieList';
+import CarouselMovies from '../../components/CarouselMovies';
 import { IMovie } from '../../models';
 import styles from './search.module.scss';
 
@@ -11,7 +11,7 @@ function Search() {
     <>
       <div className={styles.searchConteiner}>
         <Form setMovies={setMovies} />
-        <MovieList movies={movies} />
+        <CarouselMovies movies={movies} />
       </div>
     </>
   );

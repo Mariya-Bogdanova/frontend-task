@@ -1,8 +1,8 @@
 import { useState, FormEvent, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
+import { IMovie } from '../../models';
 import { ReactComponent as LoupeSmall } from '../../images/loupeSmall.svg';
 import styles from './form.module.scss';
-import { IMovie } from '../../models';
 
 interface IURL {
   url: string;
@@ -16,7 +16,7 @@ interface IFormProps {
   setMovies: (movie: IMovie[]) => void;
 }
 
-function Form({}: IFormProps) {
+function Form({ setMovies }: IFormProps) {
   const [inputValue, setInputValue] = useState('');
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -25,8 +25,14 @@ function Form({}: IFormProps) {
 
   async function submitHandler(e: FormEvent) {
     e.preventDefault();
-    const res = await axios<IInfo>('api/discover');
-    console.log(777, res.data);
+    if (inputValue.trim().length === 0) return;
+
+    let info = await axios<IInfo>('api/discover');
+    const res = info.data.items.map((el, i) => ({
+      ...el,
+      id: new Date().getTime().toString() + i,
+    }));
+    setMovies(res);
   }
 
   function keyPressHandler(e: KeyboardEvent) {
