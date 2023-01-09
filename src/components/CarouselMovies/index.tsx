@@ -2,6 +2,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { IMovie } from '../../models';
 import Movie from '../Movie';
+import styles from './carouselMovies.module.scss';
 
 interface ICarouselMoviesProps {
   movies: IMovie[];
@@ -32,11 +33,11 @@ function CarouselMovies({ movies }: ICarouselMoviesProps) {
       swipeable={true}
       draggable={true}
       responsive={responsive}
-      infinite={true}
-      containerClass='carousel-container'
+      containerClass={styles['carousel-container']}
       removeArrowOnDeviceType={['tablet', 'mobile']}
       dotListClass='custom-dot-list-style'
-      itemClass='carousel-item-padding-40-px'
+      itemClass={styles['carousel-item-padding-40-px']}
+      centerMode={false}
     >
       {movies &&
         movies.map(movie => (
