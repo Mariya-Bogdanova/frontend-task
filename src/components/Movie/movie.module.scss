@@ -1,23 +1,53 @@
+@keyframes play {
+    0% {
+      left: 88px;
+      top: 208px;
+      opacity: 0;
+    }
+    80% {
+        left: 88px;
+        top: 66px;
+      }
+    100% {
+      left: 88px;
+      top: 76px;
+      opacity: 1;
+    }
+}
+
 .cardMovie{
     width: 368px;
-
-    .img{
+    &:hover{
+        .moreDatails{
+            animation: play  0.8s;
+            animation-fill-mode:both;
+        }
+    }
+    .imgBox{
     width: 368px;
     height: 208px;
     position: relative;
+    overflow: hidden;
+
         img{
-        width: 100%;  
-        height: 100%;
+            width: 100%;  
+            height: 100%;
+            border-radius: 4px;
+            filter: brightness(80%);
+            opacity: 0.6;
         }
+
         .btnOnIMG{
             display: flex;
             position: absolute;
             top:8px;
             left:8px;
+
             .new{
                 display: block;
                 margin-right: 16px;
             }
+
             .greenButton{
                 font-size: 16px;
                 color: #fff;
@@ -31,6 +61,16 @@
                 }
             }
         }
+
+        .moreDatails{
+            position: absolute;  
+            left: 88px;
+            top: 208px;
+            &:hover{
+                background-color: #09BB53;
+            }
+        }
+
     }
     
 

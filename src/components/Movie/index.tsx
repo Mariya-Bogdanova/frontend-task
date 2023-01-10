@@ -1,7 +1,7 @@
 import { IMovie } from '../../models';
 import styles from './movie.module.scss';
 import { ReactComponent as New } from '../../images/type=new.svg';
-
+import { ReactComponent as MoreDetails } from '../../images/moreDetails.svg';
 interface IPropsMovie {
   movie: IMovie;
 }
@@ -11,15 +11,18 @@ function Movie({
 }: IPropsMovie) {
   return (
     <div className={styles.cardMovie}>
-      <div className={styles.img}>
+      <div className={styles.imgBox}>
         <img src={`api/${poster}`} alt='picture' />
+
         <div className={styles.btnOnIMG}>
           {is_new && <New className={styles.new} />}
           <div className={styles.greenButton}>
             IMDB &nbsp; <span>{imdb_rate}/10</span>
           </div>
         </div>
+        <MoreDetails className={styles.moreDatails} />
       </div>
+
       <div className={styles.text}>
         <div className={styles.title}>{title}</div>
         <div className={styles.meta}>
