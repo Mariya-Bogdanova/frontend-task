@@ -1,9 +1,31 @@
+@keyframes changeBackground {
+  0% {
+    background-image: url('./../api/background/stranger_things.jpg');
+  }
+
+  35%{
+    background-image: url('./../api/background/stranger_things.jpg');
+  }
+  65%{
+    background-image: url('./../api/background/sherlok.jpg');
+  }
+
+  100%{
+    background-image: url('./../api/background/sherlok.jpg');
+  }
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
 
 .app::before{
+  background-color: black;
+  background-size:  1818px 1019px;
+  background-position: center;
+  filter: brightness(23%); 
+  opacity: 0.9;
   z-index: -2;
   position: fixed;
   left: 0;
@@ -11,9 +33,10 @@ body {
   top: 0;
   bottom: 0;
   content: '';
-  background-image: url('./images/sherlok.jpg');
-  filter: brightness(23%); 
-  opacity: 0.9;
-  background-size: cover;
-  background-position: center 30%;
+
+  animation: changeBackground; 
+  animation-duration: 6.25s;
+  animation-delay: -3.6s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
 }
