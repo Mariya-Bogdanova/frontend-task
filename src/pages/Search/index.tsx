@@ -5,18 +5,27 @@ import { IMovie } from '../../models';
 import styles from './search.module.scss';
 
 function Search() {
-  const [movies, setMovies] = useState<IMovie[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [movies, setMovies] = useState<IMovie[]>([]);
+
+  const [spotlightList, setSpotlightList] = useState<IMovie[]>([]);
+  const [spotlightFlag, setSpotlightFlag] = useState(false);
+
   return (
     <>
       <div className={styles.searchConteiner}>
-        <Form setMovies={setMovies} inputValue={inputValue} setInputValue={setInputValue} />
-        {!inputValue && (
-          <>
-            <div className={styles.spotlight}>in the spotlight</div>
-            <CarouselMovies movies={movies} />
-          </>
-        )}
+        <Form
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          setMovies={setMovies}
+          spotlightList={spotlightList}
+          setSpotlightList={setSpotlightList}
+          spotlightFlag={spotlightFlag}
+          setSpotlightFlag={setSpotlightFlag}
+        />
+        {spotlightFlag && !inputValue && <div className={styles.spotlight}>in the spotlight</div>}
+
+        {!inputValue && <CarouselMovies movies={movies} />}
       </div>
     </>
   );
