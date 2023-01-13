@@ -6,12 +6,17 @@ import styles from './search.module.scss';
 
 function Search() {
   const [movies, setMovies] = useState<IMovie[]>([]);
-
+  const [inputValue, setInputValue] = useState('');
   return (
     <>
       <div className={styles.searchConteiner}>
-        <Form setMovies={setMovies} />
-        <CarouselMovies movies={movies} />
+        <Form setMovies={setMovies} inputValue={inputValue} setInputValue={setInputValue} />
+        {!inputValue && (
+          <>
+            <div className={styles.spotlight}>in the spotlight</div>
+            <CarouselMovies movies={movies} />
+          </>
+        )}
       </div>
     </>
   );

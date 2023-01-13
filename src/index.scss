@@ -22,8 +22,10 @@ body {
 
 .app::before{
   background-color: black;
-  background-size:  1818px 1019px;
+  background-size:  1920px 1131px;
+  // background-size:  1480px 830px;
   background-position: center;
+  background-repeat: no-repeat;
   filter: brightness(23%); 
   opacity: 0.9;
   z-index: -2;

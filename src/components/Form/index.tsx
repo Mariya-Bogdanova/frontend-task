@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent, KeyboardEvent } from 'react';
+import { FormEvent, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import axios from 'axios';
 import { IMovie } from '../../models';
 import { ReactComponent as LoupeSmall } from '../../images/loupeSmall.svg';
@@ -14,19 +14,16 @@ interface IInfo {
 
 interface IFormProps {
   setMovies: (movie: IMovie[]) => void;
+  inputValue: string;
+  setInputValue: (inputValue: string) => void;
 }
 
-function Form({ setMovies }: IFormProps) {
-  const [inputValue, setInputValue] = useState('');
-
+function Form({ setMovies, inputValue, setInputValue }: IFormProps) {
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
 
-  async function submitHandler(e: FormEvent) {
-    e.preventDefault();
-    if (inputValue.trim().length === 0) return;
-
+  async function getMovies() {
     let info = await axios<IInfo>('api/discover');
     const res = info.data.items.map((el, i) => ({
       ...el,
@@ -35,11 +32,25 @@ function Form({ setMovies }: IFormProps) {
     setMovies(res);
   }
 
+  async function submitHandler(e: FormEvent) {
+    e.preventDefault();
+    if (inputValue.trim().length === 0) return;
+    const time = Math.floor(Math.random() * (1000 - 1) + 1);
+
+    setTimeout(async () => {
+      getMovies();
+    }, time);
+  }
+
   function keyPressHandler(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       submitHandler(e);
     }
   }
+
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
     <>

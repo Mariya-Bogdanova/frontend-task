@@ -4,17 +4,20 @@ import { ReactComponent as New } from '../../images/type=new.svg';
 import { ReactComponent as MoreDetails } from '../../images/moreDetails.svg';
 import TextCard from '../TextCard';
 import styles from './movie.module.scss';
+import { useState } from 'react';
 
 interface IPropsMovie {
   movie: IMovie;
 }
 
 function Movie({ movie }: IPropsMovie) {
-  const { poster, imdb_rate, is_new } = movie;
+  const { poster, imdb_rate, is_new, keyframe } = movie;
+  const [picture, setPicture] = useState(poster);
+
   return (
-    <div className={styles.cardMovie}>
+    <div className={styles.cardMovie} onMouseEnter={() => setPicture(keyframe)} onMouseLeave={() => setPicture(poster)}>
       <div className={styles.imgBox}>
-        <img src={`api/${poster}`} alt='picture' className={styles.img} />
+        <img style={{}} src={`api/${picture}`} alt='picture' className={styles.img} />
 
         <div className={classNames(styles.btnOnIMG, styles.topBtnOn)}>
           {is_new && <New className={styles.new} />}
