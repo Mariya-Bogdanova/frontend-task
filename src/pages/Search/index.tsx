@@ -7,9 +7,14 @@ import styles from './search.module.scss';
 function Search() {
   const [inputValue, setInputValue] = useState('');
   const [movies, setMovies] = useState<IMovie[]>([]);
-
   const [spotlightList, setSpotlightList] = useState<IMovie[]>([]);
-  const [spotlightFlag, setSpotlightFlag] = useState(false);
+
+  //отрисовка первого экрана с низким инпутом и пустым экраном под первым поиском.
+  const [firstScreen, setFirstScreen] = useState(true);
+  //отрисовка второго экрана: карусели по поиску или сбросу поиска
+  const [secondScreen, setSecondScreen] = useState(false);
+  //флаг отрисовки spotlight или movies:
+  const [spotlightFlag, setSpotlightFlag] = useState(true);
 
   return (
     <>
@@ -18,14 +23,17 @@ function Search() {
           inputValue={inputValue}
           setInputValue={setInputValue}
           setMovies={setMovies}
-          spotlightList={spotlightList}
           setSpotlightList={setSpotlightList}
-          spotlightFlag={spotlightFlag}
+          firstScreen={firstScreen}
+          setFirstScreen={setFirstScreen}
+          secondScreen={secondScreen}
+          setSecondScreen={setSecondScreen}
           setSpotlightFlag={setSpotlightFlag}
         />
-        {spotlightFlag && !inputValue && <div className={styles.spotlight}>in the spotlight</div>}
+        {(firstScreen || (secondScreen && spotlightFlag)) && <div className={styles.spotlight}>in the spotlight</div>}
+        {(firstScreen || secondScreen) && <CarouselMovies movies={spotlightFlag ? spotlightList : movies} />}
 
-        {!inputValue && <CarouselMovies movies={movies} />}
+        {/* <div className={styles.shows}>{`All(23) `}</div> */}
       </div>
     </>
   );

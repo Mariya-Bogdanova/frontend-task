@@ -16,10 +16,12 @@ interface IFormProps {
   inputValue: string;
   setInputValue: (inputValue: string) => void;
   setMovies: (movie: IMovie[]) => void;
-
-  spotlightList: IMovie[];
   setSpotlightList: (movie: IMovie[]) => void;
-  spotlightFlag: boolean;
+
+  firstScreen: boolean;
+  setFirstScreen: (firstScreen: boolean) => void;
+  secondScreen: boolean;
+  setSecondScreen: (secondScreen: boolean) => void;
   setSpotlightFlag: (firstValue: boolean) => void;
 }
 
@@ -27,20 +29,24 @@ function Form({
   inputValue,
   setInputValue,
   setMovies,
-
-  spotlightList,
   setSpotlightList,
-  spotlightFlag,
+
+  firstScreen,
+  setFirstScreen,
+  secondScreen,
+  setSecondScreen,
   setSpotlightFlag,
 }: IFormProps) {
-  //Данное изменение расстояния между header и form - сделаны по макету.
-  //Но смотрятся эти прыжки инпута достаточно странно. Я бы отказалась от данной фичи.
-  const marginTopForm = spotlightFlag && !inputValue ? 'ferstMarginTopForm' : 'secondMarginTopForm';
+  const marginTopForm = firstScreen ? 'ferstMarginTopForm' : 'secondMarginTopForm';
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
-    setSpotlightFlag(true);
-    setMovies(spotlightList);
+    if (secondScreen === false && e.target.value.length === 0) {
+      setSecondScreen(true);
+    }
+    if (e.target.value.length === 0) {
+      setSpotlightFlag(true);
+    }
   }
 
   async function getMovies(searchValue: string = '') {
@@ -48,7 +54,7 @@ function Form({
       data: { items },
     } = await axios<IInfo>(`api/discover?searchValue=${searchValue}`);
 
-    //от бэка должен прилетать id в item, список  spotlight и отфильтрованный список:
+    //от бэка должен прилетать id в item, отфильтрованный список и список  spotlight (если его нужно отрисовать при очистке строки поиска):
     // заглушка:
     let filterMovie: IMovie[] = [];
     if (searchValue) {
@@ -61,14 +67,12 @@ function Form({
         .filter(({ titleLoverCase }) => titleLoverCase.includes(searchValue));
       setSpotlightFlag(false);
     }
-
     const res = items.map((el, i) => ({
       ...el,
       id: new Date().getTime().toString() + i,
     }));
     //////////////////////////////////////////////////////////////////
-    setInputValue('');
-    setMovies(filterMovie.length ? filterMovie : res);
+    setMovies(filterMovie);
     setSpotlightList(res);
   }
 
@@ -77,6 +81,7 @@ function Form({
     if (inputValue.trim().length === 0) return;
     const searchValue = inputValue.toLowerCase();
     const time = Math.floor(Math.random() * (1000 - 1) + 1);
+    setSecondScreen(true);
 
     setTimeout(async () => {
       getMovies(searchValue);
@@ -91,7 +96,6 @@ function Form({
 
   useEffect(() => {
     getMovies();
-    setSpotlightFlag(true);
   }, []);
 
   return (
@@ -104,6 +108,7 @@ function Form({
           value={inputValue}
           onChange={changeHandler}
           onKeyDown={keyPressHandler}
+          onFocus={() => setFirstScreen(false)}
         />
         <button type='submit' className={styles.button} onClick={submitHandler}>
           search <LoupeSmall className={styles.loupeSmall} />
