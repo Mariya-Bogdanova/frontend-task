@@ -18,20 +18,14 @@ function Movie({ movie }: IPropsMovie) {
     <div className={styles.cardMovie} onMouseEnter={() => setPicture(keyframe)} onMouseLeave={() => setPicture(poster)}>
       <div className={styles.imgBox}>
         <img style={{}} src={`api/${picture}`} alt='picture' className={styles.img} />
-
-        <div className={classNames(styles.btnOnIMG, styles.topBtnOn)}>
-          {is_new && <New className={styles.new} />}
-          <div className={styles.greenButton}>
-            IMDB &nbsp; <span>{imdb_rate}/10</span>
+        {['topBtnOn', 'bottomBtnOn'].map(el => (
+          <div className={classNames(styles.btnOnIMG, styles[el])} key={el}>
+            {is_new && <New className={styles.new} />}
+            <div className={styles.greenButton}>
+              IMDB &nbsp; <span>{imdb_rate}/10</span>
+            </div>
           </div>
-        </div>
-
-        <div className={classNames(styles.btnOnIMG, styles.bottomBtnOn)}>
-          {is_new && <New className={styles.new} />}
-          <div className={styles.greenButton}>
-            IMDB &nbsp; <span>{imdb_rate}/10</span>
-          </div>
-        </div>
+        ))}
         <MoreDetails className={styles.moreDatails} />
       </div>
 
