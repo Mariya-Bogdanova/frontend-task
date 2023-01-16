@@ -13,3 +13,12 @@ export interface IMovie {
     year: number;
     id?:string;
   }
+
+  export interface IChannel {
+    title: string,
+    min_age: number,
+    description: string,
+    poster:string,
+    keyframe: string,
+    id:number,
+  }
