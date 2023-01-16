@@ -1,0 +1,29 @@
+
+.showsButtons{
+    display: flex;
+    justify-content: flex-start;
+    height: 46px;
+    margin: 56px;
+
+    button{
+        margin-right: 30px;
+        border-radius: 4px;
+        padding: 8px 6px;
+        box-sizing:border-box;
+        border: none;
+        background-color: inherit;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+
+            &:hover{
+                background-color: #525255;
+            }
+        }
+    }
+.type{
+    margin: 56px 0 10px 56px;
+    font-weight: 700;
+    color: white;
+    font-size: 36px;
+}

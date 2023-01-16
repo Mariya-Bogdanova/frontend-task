@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { IChannel } from '../../models';
+import { IMovie } from '../../models';
 import { ReactComponent as Play } from '../../images/Play.svg';
 import styles from './channel.module.scss';
 
 interface IPropsChannel {
-  channel: IChannel;
+  channel: IMovie;
 }
 
 function Channel({ channel }: IPropsChannel) {
@@ -13,12 +13,12 @@ function Channel({ channel }: IPropsChannel) {
 
   return (
     <>
-      <div
-        className={styles.cardChannel}
-        onMouseEnter={() => setPicture(keyframe)}
-        onMouseLeave={() => setPicture(poster)}
-      >
-        <div className={styles.imgBox}>
+      <div className={styles.cardChannel}>
+        <div
+          className={styles.imgBox}
+          onMouseEnter={() => setPicture(keyframe)}
+          onMouseLeave={() => setPicture(poster)}
+        >
           <img src={picture} alt='picture' className={styles.img} />
           <div className={styles.playAnimation}>
             <Play />

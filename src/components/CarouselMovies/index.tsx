@@ -1,16 +1,15 @@
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { IChannel, IMovie } from '../../models';
+import { IMovie } from '../../models';
 import Channel from '../Channel';
 import Movie from '../Movie';
+import 'react-multi-carousel/lib/styles.css';
 import styles from './carouselMovies.module.scss';
 
 interface ICarouselMoviesProps {
-  movies?: IMovie[];
-  channels?: IChannel[];
+  data: IMovie[];
+  titleCarousel: string;
 }
-
-function CarouselMovies({ movies, channels }: ICarouselMoviesProps) {
+function CarouselMovies({ data, titleCarousel }: ICarouselMoviesProps) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -41,17 +40,9 @@ function CarouselMovies({ movies, channels }: ICarouselMoviesProps) {
       itemClass={styles['carousel-item-padding-40-px']}
       centerMode={false}
     >
-      {movies &&
-        movies.map(movie => (
-          <div key={movie.id}>
-            <Movie movie={movie} />
-          </div>
-        ))}
-      {channels &&
-        channels.map(channel => (
-          <div key={channel.id}>
-            <Channel channel={channel} />
-          </div>
+      {data &&
+        data.map(el => (
+          <div key={el.id}>{titleCarousel === 'TV channels' ? <Channel channel={el} /> : <Movie movie={el} />}</div>
         ))}
     </Carousel>
   );
